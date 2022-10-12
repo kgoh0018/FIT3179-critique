@@ -1,0 +1,63 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "data":{
+        "url":"https://raw.githubusercontent.com/kgoh0018/FIT3179-Assignment2/main/data/ds_salaries.csv"
+    },
+    "title": {
+        "text": "Title Job Count",
+        "anchor": "middle",
+        "fontSize": 16,
+        "frame": "group",
+        "offset": 10
+    },
+    "params": [{
+        "name": "work_year",
+        "value": 2020,
+        "bind": {
+            "input": "range",
+            "min": 2020,
+            "max": 2022,
+            "step": 1,
+            "name": "Year: "
+        }
+        }],
+    "transform": [{"filter": "datum.work_year == work_year"}],
+    "encoding": {
+        "x":{"field":"job_title", "title":"Title of Job"},
+        "y":{"aggregate":"count","field":"job_title","title":"Count of Job"}
+    },
+    "layer": [
+        {
+            "mark":"bar",
+            "encoding": {
+                "tooltip": [
+                    {"field": "job_title", "type": "nominal", "title":"Title of Job"},
+                    {"aggregate":"count", "field": "job_title", "type": "quantitative", "title":"Count", "format": ","}
+                ],
+            "color": {"value": "#ff9900"}
+            }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "baseline": "middle",
+                "dx": -12,
+                "fontSize": 11.5,
+                "fontStyle": "italic"
+            },
+            "encoding": {
+                "text": {"field": "job_title", "type": "nominal"},
+                "color": {"value": "black"},
+                "opacity": {
+                    "condition": {
+                        "test": "datum['job_title'] == 'Data Scientist' || datum['job_title'] == 'Data Engineer' || datum['job_title'] == 'Data Analyst' ",
+                        "value": 1
+                    },
+                    "value": 0
+                }
+            }
+        }
+    ]
+}

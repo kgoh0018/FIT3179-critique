@@ -1,0 +1,26 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 1400,
+    "height":800,
+    "data": {
+        "url":"https://raw.githubusercontent.com/kgoh0018/FIT3179-Assignment2/main/data/ds_salaries.csv"
+    },
+    "title": {
+        "text": "Salaries Based on Employment Type and Experience",
+        "anchor": "middle",
+        "fontSize": 16,
+        "frame": "group",
+        "offset": 10
+    },
+    "mark" :"rect",
+    "encoding": {
+        "y": {"field": "experience_level", "type":"ordinal", "title":"Level of Experience"},
+        "x": {"field": "job_title", "type":"nominal", "title":"Title of Job"},
+        "color": {"aggregate":"mean", "field": "salary_in_usd", "title":"Mean Salary (USD)"},
+        "tooltip": [
+            {"field": "job_title", "type": "nominal", "title":"Title of Job"},
+            {"field": "experience_level", "type": "ordinal", "title":"Level of experience"},
+            {"aggregate":"mean", "field": "salary_in_usd", "type": "quantitative", "title":"Mean Salary", "format": ","}
+        ]
+    }
+}
